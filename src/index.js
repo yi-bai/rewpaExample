@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import {createStore, applyMiddleware, compose} from 'redux';
 import promiseMiddleware from 'redux-promise';
+import { connect, Provider } from 'react-redux';
 
 import reducer from './reducers/Reducers';
 
@@ -11,7 +12,9 @@ const store = createStore(reducer, composeEnhancers(applyMiddleware(promiseMiddl
 const rootEl = document.getElementById('root')
 
 const render = () => ReactDOM.render(
-	<App/>,
+	<Provider store={store}>
+		<App/>
+	</Provider>,
 	rootEl
 )
 
