@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import { createRewpa } from 'rewpa';
+import { createRewpa } from '../../../rewpa/src/index';
 
 const counterRewpa = createRewpa(
   'Counter',

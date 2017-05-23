@@ -13,6 +13,7 @@ class Counter extends React.Component {
                 <span onClick={() => this.props.decrement()}>-</span>
                 { this.props.count }
                 <span onClick={() => this.props.increment()}>+</span>
+                <span onClick={() => this.props.remove()}>Remove</span>
             </div>
         );
     }

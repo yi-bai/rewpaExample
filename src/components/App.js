@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Actions from '../async/Actions';
 import ListCounter from './ListCounter';
+import _ from 'lodash';
 
 class App extends React.Component {
     constructor(){
@@ -17,6 +18,7 @@ class App extends React.Component {
 	    			counters={this.props.countersA}
 	    			increment={(index) => this.props.increment('countersA', index)}
 	    			decrement={(index) => this.props.decrement('countersA', index)}
+	    			removeCounter={(index) => this.props.removeCounter('countersA', index)}
 	    		/>
 	    		<div onClick={() => this.props.addCounter('countersA')}>
 	    			+ Counter
@@ -26,6 +28,7 @@ class App extends React.Component {
 	    			counters={this.props.countersB}
 	    			increment={(index) => this.props.increment('countersB', index)}
 	    			decrement={(index) => this.props.decrement('countersB', index)}
+	    			removeCounter={(index) => this.props.removeCounter('countersB', index)}
 	    		/>
 	    		<div onClick={() => this.props.addCounter('countersB')}>
 	    			+ Counter
@@ -36,7 +39,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-	return state;
+	return _.assign({}, state);
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -54,7 +57,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 				type: `${counterName}/__append`,
 				payload: { count: 0 }
 			}),
-		deleteCounter: (counterName, index) =>
+		removeCounter: (counterName, index) =>
 			dispatch({
 				type: `${counterName}/__remove`,
 				payload: index

@@ -11,11 +11,12 @@ class ListCounter extends React.Component {
     render(){
         console.log(this.props);
         let counters = this.props.counters.map((counter, index) => {
-            <Counter
+            return <Counter
                 count={counter.count}
                 increment={() => this.props.increment(index)}
                 decrement={() => this.props.decrement(index)}
-            />
+                remove={() => this.props.removeCounter(index)}
+            />;
         });
     	return (
             <div>
