@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>Redux</title>
+    <link href="build/style.css" rel="stylesheet" />
+
+  </head>
+  <body style="margin:0">
+      <div id="root">
+      </div>
+
+      <script src="http://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+	  <script src="http://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+	  <script src="http://cdn.bootcss.com/react-cookie/0.4.9/react-cookie.js"></script>
+	  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	  
+	  <script>
+			  $.extend({
+			"get" : function (url, success, error) {
+				error = error || function() {}; 
+				return $.ajax({
+					"url" : url,
+					"success" : success,
+					"type" : "GET",
+					"cache" : false,
+					"error" : error,
+					"dataType" : "json"
+				});
+			},
+			"post" : function (url, data, success, error) { 
+				error = error || function() {};
+				return $.ajax({
+					"url" : url,
+					"data" : data,
+					"success" : success,
+					"type" : "POST",
+					"cache" : false,
+					"error" : error,
+					"dataType" : "json"
+				});
+			},
+			"put" : function (url, data, success, error) {
+				error = error || function() {}; 
+				return $.ajax({
+					"url" : url,
+					"data" : data,
+					"success" : success,
+					"type" : "PUT",
+					"cache" : false,
+					"error" : error,
+					"dataType" : "json"
+				});
+			},
+			"del" : function (url, data, success, error) { 
+				error = error || function() {};
+				return $.ajax({
+					"url" : url,
+					"data" : data,
+					"success" : success,
+					"type" : "DELETE",
+					"cache" : false,
+					"error" : error,
+					"dataType" : "json"
+				});
+			}
+		});
+	  </script>
+	  
+      <script src="build/bundle.js"></script>
+  </body>
+</html>
