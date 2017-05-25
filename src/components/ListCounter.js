@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Actions from '../async/Actions';
 import Counter from './Counter';
+import _ from 'lodash';
+import { joinPath, connectWithPath } from '../../../rewpa/src/index';
 
 class ListCounter extends React.Component {
     constructor(){
@@ -9,21 +11,43 @@ class ListCounter extends React.Component {
     }
 
     render(){
-        console.log(this.props);
-        let counters = this.props.counters.map((counter, index) => {
-            return <Counter
-                count={counter.count}
-                increment={() => this.props.increment(index)}
-                decrement={() => this.props.decrement(index)}
-                remove={() => this.props.removeCounter(index)}
-            />;
+        console.log(this.props.path);
+        let counters = this.props.__list.map((counter, index) => {
+            return <div>
+                <Counter
+                    path={joinPath(this.props.path, index)}
+                    removeCounter={() => this.props.removeCounter(index)}
+                />
+            </div>;
         });
     	return (
             <div>
                 { counters }
+                <div onClick={() => this.props.addCounter()}>
+                    + Counter
+                </div>
             </div>
         );
     }
 }
 
-export default ListCounter;
+const mapStateToProps = (state, ownProps) => {
+    return {};
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        addCounter: () =>
+            dispatch({
+                type: `__append`,
+                payload: { count: 0 }
+            }),
+        removeCounter: (index) =>
+            dispatch({
+                type: `__remove`,
+                payload: index
+            })
+    };
+}
+
+export default connectWithPath(connect)(mapStateToProps, mapDispatchToProps)(ListCounter);

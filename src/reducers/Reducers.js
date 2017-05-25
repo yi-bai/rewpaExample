@@ -1,12 +1,12 @@
 import {combineReducers} from 'redux';
 import { createRewpa } from '../../../rewpa/src/index';
 
-const counterRewpa = createRewpa(
-  'Counter',
-  {
+const counterRewpa = createRewpa({
+  name: 'Counter',
+  schema: {
     count: 0
   },
-  (state, action, runActions) => {
+  reducer: (state, action, runActions) => {
     switch(action.type){
       case 'increment':
         return { count: state.count + 1 };
@@ -16,13 +16,13 @@ const counterRewpa = createRewpa(
         return state;
     }
   }
-);
+});
 
-const rewpa = createRewpa(
-  {
+const rewpa = createRewpa({
+  schema: {
     countersA: [counterRewpa],
     countersB: [counterRewpa]
   }
-);
+});
 
 export default rewpa;

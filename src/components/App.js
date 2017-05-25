@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Actions from '../async/Actions';
 import ListCounter from './ListCounter';
 import _ from 'lodash';
+import { joinPath, connectWithPath } from '../../../rewpa/src/index';
 
 class App extends React.Component {
     constructor(){
@@ -10,59 +11,27 @@ class App extends React.Component {
     }
 
     render(){
-    	console.log(this.props);
     	return (
     		<div>
 	    		A counters:
 	    		<ListCounter
-	    			counters={this.props.countersA}
-	    			increment={(index) => this.props.increment('countersA', index)}
-	    			decrement={(index) => this.props.decrement('countersA', index)}
-	    			removeCounter={(index) => this.props.removeCounter('countersA', index)}
+	    			path={joinPath(this.props.path, 'countersA')}
 	    		/>
-	    		<div onClick={() => this.props.addCounter('countersA')}>
-	    			+ Counter
-	    		</div>
-	    		B counters:
+    			B counters:
 	    		<ListCounter
-	    			counters={this.props.countersB}
-	    			increment={(index) => this.props.increment('countersB', index)}
-	    			decrement={(index) => this.props.decrement('countersB', index)}
-	    			removeCounter={(index) => this.props.removeCounter('countersB', index)}
+	    			path={joinPath(this.props.path, 'countersB')}
 	    		/>
-	    		<div onClick={() => this.props.addCounter('countersB')}>
-	    			+ Counter
-	    		</div>
     		</div>
     	);
     }
 }
 
 const mapStateToProps = (state) => {
-	return _.assign({}, state);
+	return state;
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-	return {
-		increment: (counterName, index) => 
-			dispatch({
-				type: `${counterName}[${index}]/increment`
-			}),
-		decrement: (counterName, index) =>
-			dispatch({
-				type: `${counterName}[${index}]/decrement`
-			}),
-		addCounter: (counterName) =>
-			dispatch({
-				type: `${counterName}/__append`,
-				payload: { count: 0 }
-			}),
-		removeCounter: (counterName, index) =>
-			dispatch({
-				type: `${counterName}/__remove`,
-				payload: index
-			})
-	};
+	return {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connectWithPath(connect)(mapStateToProps, mapDispatchToProps)(App);
