@@ -1,5 +1,24 @@
 import {combineReducers} from 'redux';
 import { createRewpa } from '../../../rewpa/src/index';
+import _ from 'lodash';
+
+const confirmBox = createRewpa({
+  name: 'ConfirmBox',
+  schema: {
+    acceptAction: null,
+    isOpen: false
+  },
+  reducer: (state, action, runActions) => {
+    switch(action.type){
+      case 'open':
+        return _.assign({}, state, { acceptAction: action.payload.acceptAction, isOpen: true });
+      case 'close':
+        return _.assign({}, state, { isOpen: false });
+      default:
+        return state;
+    }
+  }
+});
 
 const counterRewpa = createRewpa({
   name: 'Counter',
@@ -21,7 +40,9 @@ const counterRewpa = createRewpa({
 const rewpa = createRewpa({
   schema: {
     countersA: [counterRewpa],
-    countersB: [counterRewpa]
+    countersB: [counterRewpa],
+    counterC: counterRewpa,
+    confirmBox: confirmBox
   }
 });
 
