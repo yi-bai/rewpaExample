@@ -39,14 +39,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         addCounter: () =>
             dispatch({
-                type: `__append`
+                type: `_APPEND`
             }),
         removeCounter: (index) =>
             dispatch({
                 type: `$..#ConfirmBox/open`,
                 payload: {
                     acceptAction: {
-                        type: `$.${ownProps.path}/__remove`,
+                        type: `$.${ownProps.path}/_REMOVE`,
                         payload: index
                     }
                 }

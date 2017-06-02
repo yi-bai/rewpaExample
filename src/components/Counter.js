@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Actions from '../async/Actions';
-import { joinPath, connectWithPath } from '../../../rewpa/src/index';
+import { joinPath, connectWithPath, createRewpa } from '../../../rewpa/src/index';
 
+// Component
 class Counter extends React.Component {
     constructor(){
         super();
@@ -22,26 +23,35 @@ class Counter extends React.Component {
     }
 }
 
+// Actions
 const mapStateToProps = (state, ownProps) => {
     return {};
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        increment: () =>
-            dispatch({
-                type: `increment`
-            }),
-        decrement: () =>
-            dispatch({
-                type: `decrement`
-            }),
-        clear: () =>
-            dispatch({
-                type: '__assign',
-                payload: { count: 0 }
-            })
+        increment: () => dispatch({ type: `increment` }),
+        decrement: () => dispatch({ type: `decrement` }),
+        clear: () => dispatch({ type: '__assign', payload: { count: 0 } })
     };
 }
 
-export default connectWithPath(connect)(mapStateToProps, mapDispatchToProps)(Counter);
+// Reducer
+const CounterContainer = connectWithPath(connect)(mapStateToProps, mapDispatchToProps)(Counter);
+CounterContainer.rewpa = createRewpa({
+  name: 'Counter',
+  schema: {
+    count: 0
+  },
+  reducer: (state, action, runActions) => {
+    switch(action.type){
+      case 'increment':
+        return { count: state.count + 1 };
+      case 'decrement':
+        return { count: state.count - 1 };
+      default:
+        return state;
+    }
+  }
+});
+export default CounterContainer;
