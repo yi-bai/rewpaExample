@@ -42,6 +42,7 @@ const rewpa = createRewpa({
     countersA: [counterRewpa],
     countersB: [counterRewpa],
     counterC: counterRewpa,
+    counterMap: { '*': counterRewpa },
     confirmBox: confirmBox
   }
 });

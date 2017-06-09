@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         increment: () => dispatch({ type: `increment` }),
         decrement: () => dispatch({ type: `decrement` }),
-        clear: () => dispatch({ type: '__assign', payload: { count: 0 } })
+        clear: () => dispatch({ type: '_ASSIGN', payload: { count: 0 } })
     };
 }
 
