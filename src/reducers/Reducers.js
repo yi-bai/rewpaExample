@@ -27,9 +27,9 @@ const counterRewpa = createRewpa({
   },
   reducer: (state, action, runActions) => {
     switch(action.type){
-      case 'increment':
+      case 'INCREMENT':
         return { count: state.count + 1 };
-      case 'decrement':
+      case 'DECREMENT':
         return { count: state.count - 1 };
       default:
         return state;

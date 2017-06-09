@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Actions from '../async/Actions';
-import { joinPath, connectWithPath } from '../../../rewpa/src/index';
+import { joinPath } from '../../../rewpa/src/index';
 
 class ConfirmBox extends React.Component {
     constructor(){
@@ -32,4 +32,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     };
 }
 
-export default connectWithPath(connect)(mapStateToProps, mapDispatchToProps)(ConfirmBox);
+export default connect(mapStateToProps, mapDispatchToProps)(ConfirmBox);

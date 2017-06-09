@@ -5,42 +5,48 @@ import ListCounter from './ListCounter';
 import Counter from './Counter';
 import ConfirmBox from './ConfirmBox';
 import _ from 'lodash';
-import { joinPath, connectWithPath } from '../../../rewpa/src/index';
+import { createRewpa, joinPath, getPath } from '../../../rewpa/src/index';
 
+// Component
 class App extends React.Component {
     constructor(){
         super();
     }
 
     render(){
+    	const { path } = this.props;
     	return (
     		<div>
 	    		A counters:
-	    		<ListCounter
-	    			path={joinPath(this.props.path, 'countersA')}
-	    		/>
+	    		<ListCounter path={joinPath(path, 'countersA')} />
     			B counters:
-	    		<ListCounter
-	    			path={joinPath(this.props.path, 'countersB')}
-	    		/>
+	    		<ListCounter path={joinPath(path, 'countersB')} />
                 sole counter:
-                <Counter
-                    path={joinPath(this.props.path, 'counterC')}
-                />
-                <ConfirmBox
-                    path={joinPath(this.props.path, 'confirmBox')}
-                />
+                <Counter path={joinPath(path, 'counterC')} />
+                <ConfirmBox path={joinPath(path, 'confirmBox')} />
     		</div>
     	);
     }
 }
 
-const mapStateToProps = (state) => {
-	return state;
+// Data
+const mapStateToProps = (state, { path }) => {
+	return getPath(state, path);
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-	return {};
+// Actions, Effects
+const mapDispatchToProps = (dispatch, { path }) => {
+	return { dispatch };
 }
 
-export default connectWithPath(connect)(mapStateToProps, mapDispatchToProps)(App);
+// Reducer
+const container = connect(mapStateToProps, mapDispatchToProps)(App);
+container.rewpa = createRewpa({
+  schema: {
+    countersA: ListCounter.rewpa,
+    countersB: ListCounter.rewpa,
+    counterC: Counter.rewpa,
+    counterMap: { '*': Counter.rewpa }
+  }
+});
+export default container;
