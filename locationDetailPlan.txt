@@ -1,4 +1,4 @@
-store
+store 按功能模块划分
 {
 	location:{
 		// data
@@ -86,12 +86,14 @@ NearbyBlogRewpa: BlogRewpa.extend{
 }
 
 components
-每个Rewpa应该有一个主的components
+将各模块通过path注入到components中，如果该component只有一个模块则可以复用
 
 getPath
 支持自动归并多个path
 
 emits
+每一个页面应该写自己的emits和saga，这个无法复用。暂时。
+https://github.com/dvajs/dva/pull/10#issuecomment-232247445
 
 saga
 
