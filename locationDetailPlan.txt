@@ -1,0 +1,71 @@
+store
+{
+	location:{
+		// data
+		id,
+		name, country
+		latitude, longitude,
+		countComment,
+		followerList: [UserRewpa]
+		// status
+		isLoading, isFollowingLoading
+	},
+	pin:{
+		input:{
+			latitude, longtiude
+			isLoading, isInputing
+		}
+	},
+	sunrise:{
+		date, sunrise, sunfall, moonrise, moonfall
+	},
+	weatherReport:{
+		date, dateMap: {'*' : {}}
+	},
+	evaluation:{
+		input:{
+			point1, point2, point3
+		}
+	},
+	accessory:{
+		list,
+		input:{
+			list,
+			text,
+			suggestion: { list: [], isOpen }
+		}
+	},
+	filter:{
+		timeStats, tagList: [TagRewpa],
+		input:{
+			hourChosenSet: [], monthsChosenSet: [],
+			tagIdList: []
+		}
+	},
+	photo:{
+		list: [PhotoRewpa],
+		pagination: { page, totalPages }
+	},
+	ui:{
+		locationInfo:{
+			tab: 'locationInfo'
+		},
+		evaluationInput:{
+			isOpen, stage: 0,1,2
+		}
+	}
+}
+
+photoRewpa:{
+	...data
+	isLiking, isSaving
+}
+
+components
+
+getPath
+
+emits
+
+saga
+
