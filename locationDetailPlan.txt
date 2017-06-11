@@ -46,6 +46,14 @@ store
 		list: [PhotoRewpa],
 		pagination: { page, totalPages }
 	},
+	comment:{
+		list: [CommentRewpa],
+		input:{
+			text, parentId, isUploading
+		}
+	},
+	nearbyLocation: [NearbyLocationRewpa],
+	nearbyBlog: [NearbyBlogRewpa],
 	ui:{
 		locationInfo:{
 			tab: 'locationInfo'
@@ -56,14 +64,32 @@ store
 	}
 }
 
-photoRewpa:{
+PhotoRewpa:{
 	...data
 	isLiking, isSaving
 }
 
+CommentRewpa:{
+	...data
+	isLiked, isReported, isLiking, isReporting,
+	reportBox: { isOpen },
+	deleteBox: { isOpen },
+	subcomment: [CommentRewpa]
+}
+
+NearbyLocationRewpa: LocationRewpa.extend{
+	isHighlight
+}
+
+NearbyBlogRewpa: BlogRewpa.extend{
+	isHighlight
+}
+
 components
+每个Rewpa应该有一个主的components
 
 getPath
+支持自动归并多个path
 
 emits
 
