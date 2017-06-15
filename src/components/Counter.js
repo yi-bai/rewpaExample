@@ -58,8 +58,8 @@ CounterContainer.rewpa = createRewpa({
     }
   },
   reducer: {
-    INCREMENT(state, action, put) { return _.assign({}, state, { count: state.count + (action.payload || 1) })  },
-    DECREMENT(state, action, put) { return _.assign({}, state, { count: state.count - 1 }) }
+    INCREMENT(state, action) { return _.assign({}, state, { count: state.count + (action.payload || 1) })  },
+    DECREMENT(state, action) { return _.assign({}, state, { count: state.count - 1 }) }
   }
 })
 export default CounterContainer;
