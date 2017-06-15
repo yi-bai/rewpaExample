@@ -5,6 +5,7 @@ import ListCounter from './ListCounter';
 import Counter from './Counter';
 import ConfirmBox from './ConfirmBox';
 import _ from 'lodash';
+import axios from 'axios';
 import { createRewpa, joinPath, getPath } from '../../../rewpa/src/index';
 
 // Component
@@ -13,11 +14,14 @@ class App extends React.Component {
         super();
     }
 
+    componentDidMount(){
+    }
+
     render(){
     	const { path } = this.props;
     	return (
     		<div>
-	    		A counters:
+	    		TopMap
 	    		<ListCounter path={joinPath(path, 'countersA')} />
     			B counters:
 	    		<ListCounter path={joinPath(path, 'countersB')} />
@@ -36,7 +40,7 @@ const mapStateToProps = (state, { path }) => {
 
 // Actions, Effects
 const mapDispatchToProps = (dispatch, { path }) => {
-	return { dispatch };
+	return { dispatch, emit: (type, payload) => container.emit() };
 }
 
 // Reducer

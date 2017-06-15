@@ -16,7 +16,9 @@ class Counter extends React.Component {
             <div>
                 <span onClick={() => dispatch({ path, type: 'DECREMENT' })}>-</span>
                 { this.props.count }
+                { this.props.isLoading ? 'loading...' : '' }
                 <span onClick={() => dispatch({ path, type: 'INCREMENT' })}>+</span>
+                <span onClick={() => dispatch({ path, type: 'INCREMENT_EFFECTS' })}> +ASYNC</span>
                 <span onClick={() => dispatch({ path, type: 'count/_SET', payload: 0 })}>Clear</span>
                 <span onClick={() => this.props.removeCounter()}>Remove</span>
             </div>
@@ -39,17 +41,25 @@ const CounterContainer = connect(mapStateToProps, mapDispatchToProps)(Counter);
 CounterContainer.rewpa = createRewpa({
   name: 'Counter',
   schema: {
-    count: 0
+    count: 0,
+    isLoading: false
   },
-  reducer: (state, action, runActions) => {
-    switch(action.type){
-      case 'INCREMENT':
-        return { count: state.count + 1 };
-      case 'DECREMENT':
-        return { count: state.count - 1 };
-      default:
-        return state;
+  effects: {
+    INCREMENT_EFFECTS({ path }, dispatch, getState) {
+      dispatch({ path, type: 'isLoading/_SET', payload: true });
+      new Promise((resolve, reject) => {
+        const res = () => resolve(Math.random()*500);
+        setTimeout(res, Math.random()*3000);
+      })
+      .then((response) => {
+        dispatch({ path, type: 'INCREMENT', payload: response });
+        dispatch({ path, type: 'isLoading/_SET', payload: false });
+      });
     }
+  },
+  reducer: {
+    INCREMENT(state, action, put) { return _.assign({}, state, { count: state.count + (action.payload || 1) })  },
+    DECREMENT(state, action, put) { return _.assign({}, state, { count: state.count - 1 }) }
   }
-});
+})
 export default CounterContainer;
