@@ -7,13 +7,22 @@
     "build": "webpack",
     "start": "webpack-dev-server --port 80 --host 0.0.0.0"
   },
+  "babel": {
+    "presets": [
+      "react",
+      "es2015",
+      "stage-0"
+    ]
+  },
   "author": "WYH",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
+    "babel-polyfill": "^6.0.16",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.22.0",
+    "babel-preset-stage-0": "^6.5.0",
     "webpack": "^1.13.2",
     "material-ui": "^0.16.7",
     "react-tap-event-plugin": "^2.0.1",
