@@ -48,7 +48,7 @@ class Counter extends React.Component {
                 { this.props.count }
                 { this.props.isLoading ? 'loading...' : '' }
                 <span onClick={() => dispatch({ path, type: 'INCREMENT' })}>+</span>
-                <span onClick={() => this.hehe()}> +ASYNC</span>
+                <span onClick={() => dispatch({ path, type: 'STREAM' })}> +ASYNC</span>
                 <span onClick={() => dispatch({ path, type: 'count/_SET', payload: 0 })}>Clear</span>
                 <span onClick={() => this.props.removeCounter()}>Remove</span>
                 { this.props.increment_called }, { this.props.throttle_called }
@@ -67,6 +67,22 @@ const mapDispatchToProps = (dispatch, { path }) => {
     return { dispatch };
 }
 
+const asStream = (epic, options) => {
+  const streamMaps = {};
+  options = options || { autoSubscribe: true };
+  return (action, dispatch, getState) => {
+    if(!(action.path in streamMaps)){
+      console.log('inside creating asStream');
+      streamMaps[action.path] = {};
+      streamMaps[action.path].input = new Rx.Subject();
+      streamMaps[action.path].output = epic(streamMaps[action.path].input, dispatch, getState);
+      if(options.autoSubscribe) streamMaps[action.path].output.subscribe(dispatch);
+    }
+    streamMaps[action.path].input.next(action);
+    return streamMaps[action.path].output;
+  };
+}
+
 // Reducer
 const CounterContainer = connect(mapStateToProps, mapDispatchToProps)(Counter);
 CounterContainer.rewpa = createRewpa({
@@ -78,29 +94,30 @@ CounterContainer.rewpa = createRewpa({
     isLoading: false
   },
   effects: {
+    STREAM: asStream((action$, dispatch, getState) => {
+      return action$
+      .switchMap(({ path }) => Rx.Observable.fromPromise(dispatch({ path, type: 'INCREMENT_EFFECTS' })));
+    }),
     INCREMENT_EFFECTS_A: async function({ path }, dispatch, getState) {
       return dispatch({ path, type: 'INCREMENT_EFFECTS' })
       .then(() => dispatch({ path, type: 'INCREMENT_CALLED++' }));
     },
-    INCREMENT_EFFECTS: ({ path }, dispatch, getState) => {
-      dispatch({ path, type: 'isLoading/_SET', payload: true });
-      dispatch({ path, type: 'THROTTLE_CALLED++', payload: true });
+    INCREMENT_EFFECTS: (action, dispatch, getState) => {
+      dispatch({ path: action.path, type: 'isLoading/_SET', payload: true });
       return axios.get('https://jsonplaceholder.typicode.com/posts')
-      .then((response) => response)
+      .then((response) => new Promise((resolve, reject) => { setTimeout(() => resolve(response), 3000); }))
       .then((response) => {
-        dispatch({ path, type: 'INCREMENT' });
-        dispatch({ path, type: 'isLoading/_SET', payload: false });
-        return response.data.length;
+        return { path: action.path, type: 'INCREMENT_FINISH', payload: response.data.length };
       });
+    },
+    INCREMENT_FINISH: (action, dispatch, getState) => {
+      dispatch({ path: action.path, type: 'INCREMENT', payload: action.payload });
+      dispatch({ path: action.path, type: 'isLoading/_SET', payload: false });
     }
   },
   reducer: {
     INCREMENT(state, action) { return _.assign({}, state, { count: state.count + (action.payload || 1) })  },
-    DECREMENT(state, action) { return _.assign({}, state, { count: state.count - (action.payload || 1) }) },
-    'INCREMENT_CALLED++': (state, action) =>
-      { return _.assign({}, state, { increment_called: state.increment_called+1 })},
-    'THROTTLE_CALLED++': (state, action) =>
-      { return _.assign({}, state, { throttle_called: state.throttle_called+1 })},
+    DECREMENT(state, action) { return _.assign({}, state, { count: state.count - (action.payload || 1) }) }
   }
 })
 export default CounterContainer;
