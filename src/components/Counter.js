@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Actions from '../async/Actions';
-import { joinPath, getPath, createRewpa } from '../../../rewpa/src/index';
+import { getPath, createRewpa } from '../../../rewpa/src/index';
 import axios from 'axios';
 import _ from 'lodash';
 import Rx from 'rxjs';
@@ -116,7 +116,7 @@ CounterContainer.rewpa = createRewpa({
     }
   },
   reducer: {
-    INCREMENT(state, action) { return _.assign({}, state, { count: state.count + (action.payload || 1) })  },
+    INCREMENT(state, action) { return _.assign({}, state, { count: state.count + (action.payload || 1) }) },
     DECREMENT(state, action) { return _.assign({}, state, { count: state.count - (action.payload || 1) }) }
   }
 })

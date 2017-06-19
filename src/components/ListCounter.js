@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Actions from '../async/Actions';
 import Counter from './Counter';
 import _ from 'lodash';
-import { createRewpa, joinPath, getPath } from '../../../rewpa/src/index';
+import { createRewpa, getPath } from '../../../rewpa/src/index';
 
 // Component
 class ListCounter extends React.Component {
@@ -16,7 +16,7 @@ class ListCounter extends React.Component {
         let counters = this.props.list.map((counter, index) => {
             return <div>
                 <Counter
-                    path={joinPath(this.props.path, index)}
+                    path={`${this.props.path}[${index}]`}
                     removeCounter={() => this.props.removeCounter(index)}
                 />
             </div>;

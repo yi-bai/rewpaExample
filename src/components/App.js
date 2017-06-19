@@ -6,7 +6,7 @@ import Counter from './Counter';
 import ConfirmBox from './ConfirmBox';
 import _ from 'lodash';
 import axios from 'axios';
-import { createRewpa, joinPath, getPath } from '../../../rewpa/src/index';
+import { createRewpa, getPath } from '../../../rewpa/src/index';
 
 // Component
 class App extends React.Component {
@@ -22,12 +22,12 @@ class App extends React.Component {
     	return (
     		<div>
 	    		TopMap
-	    		<ListCounter path={joinPath(path, 'countersA')} />
+	    		<ListCounter path={'countersA'} />
     			B counters:
-	    		<ListCounter path={joinPath(path, 'countersB')} />
+	    		<ListCounter path={'countersB'} />
                 sole counter:
-                <Counter path={joinPath(path, 'counterC')} />
-                <ConfirmBox path={joinPath(path, 'confirmBox')} />
+                <Counter path={'counterC'} />
+                <ConfirmBox path={'confirmBox'} />
     		</div>
     	);
     }
