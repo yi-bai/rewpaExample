@@ -14,9 +14,9 @@ class ListCounter extends React.Component {
     render(){
         const { path, dispatch } = this.props;
         let counters = this.props.list.map((counter, index) => {
-            return <div>
+            return <div key={index}>
                 <Counter
-                    path={`${this.props.path}[${index}]`}
+                    path={`${path}[${index}]`}
                     removeCounter={() => this.props.removeCounter(index)}
                 />
             </div>;
@@ -43,8 +43,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 // Reducer
-const container = connect(mapStateToProps, mapDispatchToProps)(ListCounter);
-container.rewpa = createRewpa({
-  schema: [Counter.rewpa]
-});
-export default container;
+export default connect(mapStateToProps, mapDispatchToProps)(ListCounter);

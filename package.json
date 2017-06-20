@@ -1,5 +1,5 @@
 {
-  "name": "StaffManage",
+  "name": "RewpaExample",
   "version": "1.0.0",
   "description": "",
   "main": "",
@@ -38,6 +38,7 @@
   "dependencies": {
     "axios": "^0.15.3",
     "lodash": "^4.17.4",
+    "react-router-redux": "^4.0.8",
     "rewpa": "^0.4.0",
     "rxjs": "^5.4.1"
   }
