@@ -25,25 +25,30 @@ class LocationDetail extends React.Component {
     render(){
         const { data } = this.props;
         if(data.isLoading) return <div>loading...</div>;
-    	return (
-    		<div>
+      return (
+        <div>
                 <TopMap path={{ location: 'location', pinInput: 'pinInput' }}/>
                 <LocationInfoAndSunrise
-                    path={{ ui: 'ui.locationInfoAndSunrise', location: 'location', pinInput: 'pinInput' }}
+                  path={{
+                    ui: 'ui.locationInfoAndSunrise',
+                    location: 'location',
+                    pinInput: 'pinInput',
+                    sunrise: 'sunrise'
+                  }}
                 />
-    		</div>
+        </div>
         );
     }
 }
 
 // Data
 const mapStateToProps = (state, { path }) => {
-	return { data: getPath(state, path) };
+  return { data: getPath(state, path) };
 }
 
 // Actions, Effects
 const mapDispatchToProps = (dispatch, { path }) => {
-	return { dispatch };
+  return { dispatch };
 }
 
 // Reducer

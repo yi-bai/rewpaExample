@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createRewpa, getPath } from '../../../../rewpa/src/index';
 
 import NumberInput from './NumberInput';
+import DateInput from './DateInput';
 
 class LocationInfoAndSunrise extends React.Component {
   constructor(){
@@ -15,7 +16,7 @@ class LocationInfoAndSunrise extends React.Component {
 
   render(){
     const { data, path, dispatch } = this.props;
-    const { ui, location, pinInput } = data;
+    const { ui, location, pinInput, sunrise } = data;
     return (
       <div>
         <a onClick={() => dispatch({ type:`${path.ui}.tab/_SET`, payload: 1 })}>LocationInfo</a> |
@@ -33,6 +34,8 @@ class LocationInfoAndSunrise extends React.Component {
         }
         {ui.tab === 2 ?
           <div>
+            <DateInput path={`${path.sunrise}.date`}/>
+            {JSON.stringify(sunrise.times)}
           </div>
         : null
         }
