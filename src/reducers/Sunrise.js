@@ -34,6 +34,13 @@ export default createRewpa({
         dispatch({ type: `${path}.isLoading/_SET`, payload: false });
         console.log('error handling here');
       })
+    },
+    _ON_CHANGE: ({ path, payload: { prevState } }, dispatch, getState) => {
+      const nextState = getPath(getState(), path); prevState = getPath(prevState, path);
+      if(nextState.date !== prevState.date){
+        const { latitude, longitude, date } = nextState;
+        dispatch({ type: `${path}.times/_ASSIGN`, payload: getSunriseMock(latitude, longitude, date)});
+      }
     }
   },
   reducer: {
