@@ -14,22 +14,10 @@ class Input extends React.Component {
     render(){
         const { data, path, dispatch } = this.props;
     	return (
-        <div>
             <input
-                value={data.year}
-                onChange={(e) => dispatch({ type: `${path}.year/_SET`, payload: parseFloat(e.target.value) })}
+                value={data}
+                onChange={(e) => dispatch({ type: `${path}/SET`, payload: parseFloat(e.target.value) })}
             />
-            <input
-                value={data.month}
-                onChange={(e) => dispatch({ type: `${path}.month/_SET`, payload: parseFloat(e.target.value) })}
-            />
-            <input
-                value={data.day}
-                onChange={(e) => dispatch({
-                    type: `${path}.day/_SET`,
-                    payload: e.target.value ? parseInt(e.target.value) : 1 })}
-            />
-        </div>
         );
     }
 }

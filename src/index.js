@@ -4,8 +4,11 @@ import App from './components/App';
 import {createStore, applyMiddleware, compose} from 'redux';
 import { connect, Provider } from 'react-redux';
 import { rewpaMiddleware } from '../../rewpa/src/index';
+import axios from 'axios';
 
 import reducer from './reducers';
+
+axios.defaults.withCredentials = true;
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, composeEnhancers(applyMiddleware(rewpaMiddleware(reducer))));

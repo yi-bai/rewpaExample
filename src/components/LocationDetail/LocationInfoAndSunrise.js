@@ -10,10 +10,6 @@ class LocationInfoAndSunrise extends React.Component {
     super();
   }
 
-  componentDidMount(){
-    const { dispatch } = this.props;
-  }
-
   render(){
     const { data, path, dispatch } = this.props;
     const { ui, location, pinInput, sunrise } = data;
@@ -23,12 +19,12 @@ class LocationInfoAndSunrise extends React.Component {
         <a onClick={() => dispatch({ type:`${path.ui}.tab/_SET`, payload: 2 })}>Sunrise</a>
         {ui.tab === 1 ?
           <div>
-          {location.name}, {location.addressJp}, {location.countryJp},
-          {location.latitude}, {location.longitude}
-          <br/>
-          <a onClick={() => dispatch({ type:`${path.pinInput}/TOGGLE_INPUT`, payload: true })}>
-            ピンを立てる
-          </a>
+            {location.name}, {location.addressJp}, {location.countryJp},
+            {location.latitude}, {location.longitude}
+            <br/>
+            <a onClick={() => dispatch({ type:`${path.pinInput}/TOGGLE_INPUT` })}>
+              ピンを立てるを{pinInput.isInputting ? '閉じる' : '開ける'}
+            </a>
           </div>
         : null
         }

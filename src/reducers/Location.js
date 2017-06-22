@@ -8,6 +8,15 @@ import LocationRewpa from './Location';
 export default createRewpa({
   name: 'Location',
   schema: {
+    evaluation: {
+      point1: 0,
+      point2: 0,
+      point3: 0
+    },
+    accessories: [{
+      id: null,
+      accessory: ''
+    }],
     isLoading: false
   },
   effects: {

@@ -18,7 +18,6 @@ class LocationDetail extends React.Component {
     return (
       <div>
         {data.location.latitude}, {data.location.longitude}
-        <a onClick={() => dispatch({ type: `${path.pinInput}.isInputting/_SET`, payload: true })}>Input</a>
         {data.pinInput.isInputting ?
         <div>
             <NumberInput path={`${path.pinInput}.latitude`}/>

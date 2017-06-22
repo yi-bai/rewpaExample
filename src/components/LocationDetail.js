@@ -11,6 +11,8 @@ import { createRewpa, getPath } from '../../../rewpa/src/index';
 // Component
 import TopMap from './LocationDetail/TopMap';
 import LocationInfoAndSunrise from './LocationDetail/LocationInfoAndSunrise';
+import EvaluationAccessoryDisplay from './LocationDetail/EvaluationAccessoryDisplay';
+import EvaluationAccessoryInput from './LocationDetail/EvaluationAccessoryInput';
 
 class LocationDetail extends React.Component {
     constructor(){
@@ -27,13 +29,31 @@ class LocationDetail extends React.Component {
         if(data.isLoading) return <div>loading...</div>;
       return (
         <div>
-                <TopMap path={{ location: 'location', pinInput: 'pinInput' }}/>
+                <TopMap
+                  path={{
+                    location: 'location',
+                    pinInput: 'pinInput'
+                  }}
+                />
                 <LocationInfoAndSunrise
                   path={{
                     ui: 'ui.locationInfoAndSunrise',
                     location: 'location',
                     pinInput: 'pinInput',
                     sunrise: 'sunrise'
+                  }}
+                />
+                <EvaluationAccessoryDisplay
+                  path={{
+                    location: 'location',
+                    evaluationInput: 'evaluationInput'
+                  }}
+                />
+                <EvaluationAccessoryInput
+                  path={{
+                    ui: 'ui.evaluationAccessoryInput',
+                    evaluationInput: 'evaluationInput',
+                    accessoryInput: 'accessoryInput'
                   }}
                 />
         </div>
@@ -55,7 +75,8 @@ const mapDispatchToProps = (dispatch, { path }) => {
 const container = connect(mapStateToProps, mapDispatchToProps)(LocationDetail);
 container.rewpa = createRewpa({
     schema:{
-        locationInfoAndSunrise: LocationInfoAndSunrise.rewpa
+        locationInfoAndSunrise: LocationInfoAndSunrise.rewpa,
+        evaluationAccessoryInput: EvaluationAccessoryInput.rewpa
     }
 });
 export default container;
