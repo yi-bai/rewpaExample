@@ -24,11 +24,20 @@ class EvaluationAccessoryInput extends React.Component {
           </div>
           <input
             value={ui.accessoryInputText}
-            onChange={(e) => dispatch({ type: `${path.ui}.accessoryInputText/_SET`, payload: e.target.value })}
+            onChange={(e) => dispatch({
+              type: `${path.ui}.accessoryInputText/_SET`,
+              payload: e.target.value
+            })}
           />
           <a onClick={() => {
-            dispatch({ type: `${path.accessoryInput}/INSERT`, payload: { accessory: ui.accessoryInputText }});
-            dispatch({ type: `${path.ui}.accessoryInputText/_SET`, payload: '' });
+            dispatch({
+              type: `${path.accessoryInput}/INSERT`,
+              payload: { accessory: ui.accessoryInputText
+            }});
+            dispatch({
+              type: `${path.ui}.accessoryInputText/_SET`,
+              payload: ''
+            });
           }}>
             OK
           </a>
@@ -36,7 +45,10 @@ class EvaluationAccessoryInput extends React.Component {
             {accessoryInput.map(e => (
               <span>
                 {e.accessory}
-                <a onClick={() => dispatch({ type: `${path.accessoryInput}/_DELETE`, payload: { id: e.id }})}>
+                <a onClick={() => dispatch({
+                  type: `${path.accessoryInput}/_DELETE`,
+                  payload: { id: e.id }
+                })}>
                   x
                 </a>
               </span>
@@ -44,7 +56,9 @@ class EvaluationAccessoryInput extends React.Component {
           </div>
         </div>
         <a onClick={() => dispatch({
-          type: `${path.evaluationInput}/SUBMIT`, payload: { pathAccessoryInput: path.accessoryInput }})}>
+          type: `${path.evaluationInput}/SUBMIT`,
+          payload: { pathAccessoryInput: path.accessoryInput
+        }})}>
           投稿
         </a>
       </div> :

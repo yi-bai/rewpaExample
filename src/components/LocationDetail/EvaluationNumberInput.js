@@ -7,10 +7,6 @@ class Input extends React.Component {
         super();
     }
 
-    componentDidMount(){
-        const { dispatch } = this.props;
-    }
-
     render(){
         const { data, path, dispatch } = this.props;
     	return (

@@ -20,7 +20,7 @@ export default createRewpa({
     isLoading: false
   },
   effects: {
-    INIT: ({ path }, dispatch, getState) => {
+    /*INIT: ({ path }, dispatch, getState) => {
       dispatch({ path, type: 'isLoading/_SET', payload: true });
       return axios.get('http://localhost:8080/api/v1/locations/31')
       .then((response) =>{
@@ -32,6 +32,14 @@ export default createRewpa({
         dispatch({ path, type: 'isLoading/_SET', payload: false });
         dispatch({ type: 'popup/_SET', payload: { message: 'error' }});
       });
+    },*/
+    _AFTER_ACTION: ({ payload }, dispatch, getState) => {
+      console.log(payload.action, 'location after action called');
+    }
+  },
+  sagas: {
+    INIT: function *(action){
+      console.log('sagas called');
     }
   },
   reducer: {}

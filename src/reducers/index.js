@@ -8,6 +8,19 @@ import AccessoryInputRewpa from './AccessoryInput';
 
 import LocationDetail from '../components/LocationDetail';
 
+import { combineReducers } from 'redux';
+/*
+export default combineReducers({
+  location: LocationRewpa,
+  pinInput: PinInputRewpa,
+  evaluationInput: EvaluationInputRewpa,
+  accessoryInput: AccessoryInputRewpa,
+  sunrise: SunriseRewpa,
+  routing: routerReducer,
+  ui: LocationDetail.rewpa,
+  isLoading: false
+});
+*/
 export default createRewpa({
   schema: {
     location: LocationRewpa,
@@ -37,6 +50,9 @@ export default createRewpa({
         dispatch({ type: `${path}.evaluationInput/UPDATE`, payload: response.userEvaluation });
         dispatch({ type: `${path}.accessoryInput/_SET`, payload: response.accessories });
       });
+    },
+    _AFTER_ACTION: ({ payload }, dispatch, getState) => {
+      console.log(payload.action, 'index after action called');
     }
   },
   reducer: {}
