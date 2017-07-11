@@ -37,10 +37,12 @@ export default createRewpa({
       console.log(payload.action, 'location after action called');
     }
   },
-  sagas: {
-    INIT: function *(action){
-      console.log('sagas called');
-    }
+  observables: (action$, { dispatch, getState }) => {
+    console.log(action$);
+    return action$
+    .filter((action) => action.type === 'location/INIT')
+    .do((action) => console.log(action, 'observablessss'))
+    .mapTo({ type: 'evaluation.point2/_SET', payload: 666 });
   },
   reducer: {}
 });

@@ -35,6 +35,11 @@ export default createRewpa({
   effects: {
     INIT: ({ path }, dispatch, getState) => {
       dispatch({ type: `${path}.isLoading/_SET`, payload: true });
+      dispatch({ type: 'location/INIT' });
+      dispatch({ type: 'location/INIT' });
+      dispatch({ type: 'location/ANOTHER' });
+      dispatch({ type: 'location/INIT' });
+      /*
       return dispatch({ path, type: 'location/INIT' })
       .then((response) => {
         const { latitude, longitude, userEvaluation } = response;
@@ -49,7 +54,7 @@ export default createRewpa({
 
         dispatch({ type: `${path}.evaluationInput/UPDATE`, payload: response.userEvaluation });
         dispatch({ type: `${path}.accessoryInput/_SET`, payload: response.accessories });
-      });
+      });*/
     },
     _AFTER_ACTION: ({ payload }, dispatch, getState) => {
       console.log(payload.action, 'index after action called');

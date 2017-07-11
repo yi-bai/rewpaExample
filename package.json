@@ -5,7 +5,7 @@
   "main": "",
   "scripts": {
     "build": "webpack",
-    "start": "webpack-dev-server --port 80 --host 0.0.0.0"
+    "start": "webpack-dev-server --port 7000 --host 127.0.0.1"
   },
   "babel": {
     "presets": [
