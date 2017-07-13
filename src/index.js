@@ -13,7 +13,8 @@ axios.defaults.withCredentials = true;
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, composeEnhancers(
 	applyMiddleware(rewpaMiddleware(reducer)),
-	applyMiddleware(rewpaObservableMiddleware(reducer))));
+	applyMiddleware(rewpaSagaMiddleware)));
+rewpaSagaMiddleware.runRewpa(reducer);
 
 const rootEl = document.getElementById('root')
 
