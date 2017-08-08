@@ -8,6 +8,7 @@ import { Router, Route, IndexRoute } from 'react-router';
 // Component
 import CounterDetail from './CounterDetail';
 import LocationDetail from './LocationDetail';
+import TodoList from './TodoList';
 
 const App = (props) => {
 	const { history } = props;
@@ -15,7 +16,7 @@ const App = (props) => {
         <div>
             <Router history={history}>
                 <Route path="/">
-                    <IndexRoute component={LocationDetail}/>
+                    <IndexRoute component={TodoList}/>
                 </Route>
             </Router>
         </div>
